@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#e83e68">
+<title>DilSe ❤️ — Dating & Friendship</title>
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--pink:#e83e68;--deep:#b81f4b;--soft:#fff0f4;--ink:#29212a;--muted:#716772;--card:#fff;--line:#f1dce3}
+*{box-sizing:border-box}body{margin:0;background:#fff8fa;color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{position:sticky;top:0;background:#ffffffed;backdrop-filter:blur(10px);border-bottom:1px solid var(--line);z-index:5;padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-size:24px;font-weight:850;color:var(--pink);letter-spacing:-.8px}.brand span{color:#29212a}
+.pill{font-size:12px;border-radius:99px;padding:6px 10px;background:var(--soft);color:var(--deep);font-weight:700}
+main{max-width:760px;margin:auto;padding:16px 14px 92px}.hero{background:linear-gradient(135deg,#ffedf2,#fff);border:1px solid var(--line);border-radius:24px;padding:22px;margin-bottom:16px}.hero h1{font-size:28px;line-height:1.1;margin:0 0 9px}.hero p{color:var(--muted);margin:0 0 16px;line-height:1.5}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:14px;padding:12px 16px;font-weight:750}.primary{background:var(--pink);color:white}.secondary{background:var(--soft);color:var(--deep)}.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}.danger{background:#fff0f0;color:#a11b2c}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:center;z-index:8}.navinner{display:flex;max-width:760px;width:100%;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom))}.nav button{background:transparent;color:var(--muted);padding:8px 10px;font-size:12px}.nav button.active{color:var(--pink);background:var(--soft)}
+.section{display:none}.section.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;margin-bottom:14px;box-shadow:0 6px 22px #7c21400b}.profile{overflow:hidden;padding:0}.avatar{height:230px;display:flex;align-items:center;justify-content:center;font-size:76px;background:linear-gradient(135deg,#ffd9e4,#ffeef3)}.profilebody{padding:16px}.profilebody h2{margin:0;font-size:23px}.muted{color:var(--muted);font-size:14px}.actions{display:flex;gap:10px;margin-top:14px}.actions button{flex:1}.field{display:flex;flex-direction:column;gap:6px;margin:12px 0}.field label{font-size:13px;font-weight:750}.field input,.field select,.field textarea{width:100%;border:1px solid #e9d6de;border-radius:12px;padding:12px;background:white;color:var(--ink)}.field textarea{min-height:84px;resize:vertical}.row{display:flex;gap:10px}.row>*{flex:1;min-width:0}.notice{border-radius:14px;background:#fff7dd;padding:12px;color:#79550b;font-size:13px;line-height:1.45}.success{background:#e9fff1;color:#126b3b}.small{font-size:12px;color:var(--muted);line-height:1.5}.chatline{padding:12px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center}.bubble{background:var(--soft);padding:10px 13px;border-radius:15px;max-width:85%;margin:7px 0}.bubble.me{background:#e83e68;color:white;margin-left:auto}.messages{display:flex;flex-direction:column;min-height:180px}.empty{text-align:center;padding:25px;color:var(--muted)}.badge{display:inline-block;border-radius:99px;background:#f5f1f3;padding:4px 8px;font-size:11px;margin:3px 3px 0 0}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:18px}
+@media(min-width:600px){main{padding-top:22px}.avatar{height:290px}.hero h1{font-size:34px}}
+</style>
+</head>
+<body>
+<header><div class="brand">DilSe <span>❤️</span></div><div class="pill">18+ • Respect first</div></header>
+<main>
+  <div class="hero">
+    <h1>Rishte dil se shuru hote hain ❤️</h1>
+    <p>Naye dost banayein, apni profile banayein aur izzat ke saath baat karein.</p>
+    <button class="primary" onclick="showTab('profile')">Apni profile banayein</button>
+  </div>
+
+  <section id="discover" class="section active">
+    <div class="row" style="align-items:center;margin-bottom:12px"><div><h2 style="margin:0">Aapke liye</h2><div class="muted">Demo profiles — asli users nahi</div></div><span class="pill">Demo</span></div>
+    <div id="profiles"></div>
+    <div class="notice">Yeh abhi demo website hai. Dikhaye gaye profiles kalpanik hain. Kisi asli user ko message bhejne ke liye backend aur account system jodna hoga.</div>
+  </section>
+
+  <section id="matches" class="section">
+    <h2>Aapke Matches 💕</h2>
+    <div id="matchList" class="card empty">Abhi koi match nahi. Discover mein ❤️ dabakar demo try karein.</div>
+  </section>
+
+  <section id="chat" class="section">
+    <h2>Messages 💬</h2>
+    <div class="notice">Chat ka yeh local demo sirf isi phone/browser mein dikhega. Dusre users tak message nahi jaata.</div>
+    <div class="card">
+      <div class="field"><label>Demo chat chunein</label><select id="chatPerson" onchange="renderChat()"><option value="Aarohi">Aarohi (demo)</option><option value="Kabir">Kabir (demo)</option><option value="Meera">Meera (demo)</option></select></div>
+      <div id="messages" class="messages"></div>
+      <div class="row"><input id="chatInput" placeholder="Message likhein..." style="min-width:0;width:100%;border:1px solid #e9d6de;border-radius:12px;padding:12px"><button class="primary" onclick="sendMessage()">Bhejein</button></div>
+    </div>
+  </section>
+
+  <section id="profile" class="section">
+    <h2>Apni profile ❤️</h2>
+    <div class="card">
+      <div class="notice">Apni safety ke liye yahan password, Aadhaar, bank details ya ghar ka exact address na likhein. Demo profile isi browser mein save hogi.</div>
+      <form id="profileForm">
+        <div class="field"><label>Naam ya nickname</label><input id="pname" maxlength="30" placeholder="Jaise: Aman" required></div>
+        <div class="row"><div class="field"><label>Umar (18+)</label><input id="page" type="number" min="18" max="99" required placeholder="18"></div><div class="field"><label>Shehar</label><input id="pcity" maxlength="40" placeholder="Jaise: Goa"></div></div>
+        <div class="field"><label>Main kis se milna chahta/chahti hoon?</label><select id="pwant"><option>Friendship</option><option>Serious relationship</option><option>Dating</option></select></div>
+        <div class="field"><label>Mere baare mein</label><textarea id="pbio" maxlength="240" placeholder="Apni pasand ke baare mein likhein..."></textarea></div>
+        <button class="primary" type="submit">Profile save karein</button>
+      </form>
+      <div id="profileStatus" class="small" style="margin-top:10px"></div>
+    </div>
+    <h3>Safety tools</h3>
+    <div class="card"><p><b>Block / Report</b></p><p class="muted">Live user reports ke liye server-side system abhi jodna baaki hai.</p><button class="secondary" onclick="alert('Demo: report feature live backend connect hone ke baad kaam karega.')">Report ka demo</button></div>
+  </section>
+  <footer>DilSe ❤️ • Respect • Consent • Privacy<br>Abhi prototype hai, live dating service nahi.</footer>
+</main>
+<nav class="nav"><div class="navinner">
+<button id="nav-discover" class="active" onclick="showTab('discover')">💗<br>Discover</button>
+<button id="nav-matches" onclick="showTab('matches')">💕<br>Matches</button>
+<button id="nav-chat" onclick="showTab('chat')">💬<br>Chat</button>
+<button id="nav-profile" onclick="showTab('profile')">👤<br>Profile</button>
+</div></nav>
+<script>
+const demoProfiles=[
+ {name:"Aarohi",age:24,city:"Goa",bio:"Coffee, music aur beach walks pasand hain.",emoji:"🌸",tags:["Music","Travel"]},
+ {name:"Kabir",age:26,city:"Pune",bio:"Naye dost aur meaningful conversations ki talash.",emoji:"🌿",tags:["Books","Food"]},
+ {name:"Meera",age:23,city:"Mumbai",bio:"Movies, chai aur hasi-mazaak pasand hai.",emoji:"🌷",tags:["Movies","Chai"]}
+];
+let liked=JSON.parse(localStorage.getItem("dilse_likes")||"[]");
+let chats=JSON.parse(localStorage.getItem("dilse_chats")||"{}");
+function showTab(id){document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));document.getElementById("nav-"+id).classList.add("active");if(id==="matches")renderMatches();if(id==="chat")renderChat();if(id==="profile")loadProfile();window.scrollTo({top:0,behavior:"smooth"})}
+function renderProfiles(){document.getElementById("profiles").innerHTML=demoProfiles.map((p,i)=>`<div class="card profile"><div class="avatar">${p.emoji}</div><div class="profilebody"><h2>${p.name}, ${p.age}</h2><div class="muted">📍 ${p.city} • Demo profile</div><p>${p.bio}</p>${p.tags.map(t=>`<span class="badge">${t}</span>`).join("")}<div class="actions"><button class="ghost" onclick="passProfile(${i})">✕ Skip</button><button class="primary" onclick="likeProfile(${i})">${liked.includes(p.name)?"❤️ Liked":"❤️ Like"}</button></div></div></div>`).join("")}
+function likeProfile(i){const n=demoProfiles[i].name;if(!liked.includes(n))liked.push(n);localStorage.setItem("dilse_likes",JSON.stringify(liked));renderProfiles();renderMatches();alert("Demo like save ho gaya. Abhi yeh kisi asli user ko nahi bheja gaya.");}
+function passProfile(i){const p=demoProfiles.splice(i,1)[0];demoProfiles.push(p);renderProfiles()}
+function renderMatches(){const el=document.getElementById("matchList");el.className="card";el.innerHTML=liked.length?liked.map(n=>`<div class="chatline"><div style="font-size:30px">💗</div><div style="flex:1"><b>${n}</b><div class="muted">Demo like — mutual match nahi</div></div><button class="secondary" onclick="document.getElementById('chatPerson').value='${n}';showTab('chat')">Chat demo</button></div>`).join(""):'<div class="empty">Abhi koi like nahi. Discover mein ❤️ dabayein.</div>'}
+function loadProfile(){const p=JSON.parse(localStorage.getItem("dilse_profile")||"null");if(!p)return;["name","age","city","want","bio"].forEach(k=>{const el=document.getElementById("p"+k);if(el)el.value=p[k]||""});document.getElementById("profileStatus").textContent="Aapki demo profile isi device par saved hai."}
+document.getElementById("profileForm").addEventListener("submit",e=>{e.preventDefault();const p={name:document.getElementById("pname").value.trim(),age:Number(document.getElementById("page").value),city:document.getElementById("pcity").value.trim(),want:document.getElementById("pwant").value,bio:document.getElementById("pbio").value.trim()};if(p.age<18){alert("DilSe ke liye umar 18+ honi chahiye.");return}localStorage.setItem("dilse_profile",JSON.stringify(p));document.getElementById("profileStatus").textContent="Profile save ho gayi — filhaal isi browser mein.";alert("Profile save ho gayi! Yeh abhi sirf demo hai.")});
+function renderChat(){const who=document.getElementById("chatPerson").value;const arr=chats[who]||[{from:"them",text:"Namaste! Yeh DilSe chat ka demo hai 😊"}];document.getElementById("messages").innerHTML=arr.map(m=>`<div class="bubble ${m.from==="me"?"me":""}">${escapeHtml(m.text)}</div>`).join("");}
+function sendMessage(){const input=document.getElementById("chatInput");const t=input.value.trim();if(!t)return;const who=document.getElementById("chatPerson").value;if(!chats[who])chats[who]=[{from:"them",text:"Namaste! Yeh DilSe chat ka demo hai 😊"}];chats[who].push({from:"me",text:t});localStorage.setItem("dilse_chats",JSON.stringify(chats));input.value="";renderChat()}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+renderProfiles();loadProfile();
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
+</script>
+</body></html>
